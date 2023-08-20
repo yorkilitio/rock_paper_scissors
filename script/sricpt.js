@@ -6,6 +6,9 @@ const gameWinner = document.createElement('p');
 gameWinner.classList.add('gameWinner');
 const runningScore = document.createElement('p');
 runningScore.classList.add('runningScore');
+
+let playerScore = 0;
+let computerScore = 0;
         
 
 function getComputerChoice(){
@@ -17,25 +20,51 @@ function getComputerChoice(){
 function playSingleRound(playerSelection, computerSelection){
     let playerSelectionUpper = playerSelection.toUpperCase();
     let computerSelectionUpper = computerSelection.toUpperCase();
+
+
     
     if((playerSelectionUpper === "PAPER" && computerSelectionUpper === "ROCK")||
     (playerSelectionUpper === "ROCK" && computerSelectionUpper === "SCISSORS")||
     (playerSelectionUpper === "SCISSORS" && computerSelectionUpper === "PAPER")){
         singleRoundResult.textContent = `You win! ${playerSelection} beats ${computerSelection}`;
         resultsContainer.appendChild(singleRoundResult);
-        return "playerWin";
+        console.log(playerScore);
+        playerScore ++;
+        runningScore.textContent = `Your Score: ${playerScore}\nComputer Score: ${computerScore} `;
+        resultsContainer.appendChild(runningScore);
+        
     }
     else if (playerSelectionUpper === computerSelectionUpper){
 
         singleRoundResult.textContent = `Tie!`;
         resultsContainer.appendChild(singleRoundResult);
-        return "draw";
+        runningScore.textContent = `Your Score: ${playerScore}\nComputer Score: ${computerScore} `;
+        resultsContainer.appendChild(runningScore);
+        
     }
     else{
         singleRoundResult.textContent = `You lose :-( ${computerSelection} beats ${playerSelection}`;
         resultsContainer.appendChild(singleRoundResult);
-        return "computerWin";
+        console.log(computerScore);
+        computerScore ++;
+        runningScore.textContent = `Your Score: ${playerScore}\nComputer Score: ${computerScore} `;
+        resultsContainer.appendChild(runningScore);
+        
     }
+
+
+    if(playerScore === 5){ 
+        gameWinner.textContent = `Hurayyy! You win by ${playerScore} to ${computerScore}`; 
+        resultsContainer.appendChild(gameWinner); 
+    }else if (computerScore === 5){ 
+        gameWinner.textContent = `Sorry :-( The computer wins by ${computerScore} to ${playerScore}`; 
+        resultsContainer.appendChild(gameWinner); 
+    }
+
+    
+
+  
+
 
 }
 
@@ -53,31 +82,3 @@ buttons.forEach((button) => {
 
 );
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    
-    
-    runningScore.textContent = `Your Score: ${playerScore}\nComputer Score: ${computerScore} `;
-    resultsContainer.appendChild(runningScore);
-    
-    /*
-    if(playerScore > computerScore){
-        console.log("score is computing");
-        gameWinner.textContent = `Congrats, you beat the computer ${playerScore} to ${computerScore}`;
-        resultsContainer.appendChild(gameWinner);
-        return `Congrats, you beat the computer ${playerScore} to ${computerScore}`;
-
-    }
-    else if (computerScore > playerScore){
-        gameWinner.textContent = `Tough luck, the computer beat you ${computerScore} to ${playerScore}`;
-        resultsContainer.appendChild(gameWinner);
-        return `Tough luck, the computer beat you ${computerScore} to ${playerScore}`;
-    }
-    */
-
-
-
-}
-
-game();
